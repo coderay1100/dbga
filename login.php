@@ -1,7 +1,8 @@
 <?php
 
-$con = pg_connect("host=localhost user=postgres password=password dbname=postgres")
-	or die("Could not connect: " . pg_last_error());
+require_once "functions/dbconnect.php";
+
+$con = connectDB();
 	
 $email = $_POST['email'];
 $password = $_POST['password'];
@@ -19,6 +20,7 @@ if ($count == 1) {
 	$_SESSION['email'] = $email;
 	$_SESSION['fname'] = $result['fname'];
 	$_SESSION['lname'] = $result['lname'];
+	$_SESSION['fid'] = $result['faculty_id'];
 	$_SESSION['id'] = $result['id'];
 	
 	checkuser($result['id']);
