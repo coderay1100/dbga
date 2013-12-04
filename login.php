@@ -23,7 +23,7 @@ if ($count == 1) {
 	
 	checkuser($result['id']);
 	
-	header("Location: index.php");
+	//header("Location: index.php");
 	
 } else {
 	
@@ -38,7 +38,8 @@ if ($count == 1) {
 		
 		session_start();
 		$_SESSION['email'] = $email;
-		$_SESSION['companyname'] = $result['name'];
+		$_SESSION['fname'] = $result['name'];
+		$_SESSION['lname'] = "";
 		$_SESSION['id'] = $result['id'];
 		
 		header("Location: index.php");
