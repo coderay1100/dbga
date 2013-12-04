@@ -53,7 +53,9 @@ require_once "functions/authorization.php";
 										<th></th>
 									</tr>
 								</thead>
-								<?php include "includes/joblist.php"; ?>
+								<tbody>
+									<?php include "includes/joblist.php"; ?>
+								</tbody>
 							</table>
 						</div>
 						

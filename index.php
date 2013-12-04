@@ -16,7 +16,7 @@ if (loggedout()) {
 }
 
 if (falselogin()) {
-	$message = "You have entered false credentials.";
+	$message = "Umm.. Sorry. We can't log you in..";
 }
 
 ?>
