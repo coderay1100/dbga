@@ -35,6 +35,16 @@ if (falselogin()) {
 	<head>
 		<meta charset="utf-8">
 		<title>TITLE</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<style>
+		body {
+			background-color: #fffff0;
+		}
+		
+		#header {
+			height: 240px;
+		}
+		</style>
 	</head>
 	<body>
 		<h1>APP NAME</h1>
@@ -46,5 +56,8 @@ if (falselogin()) {
 		else
 			echo "<a href='logout.php'>Log out</a>";
 		?>
+		
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 	</body>
 </html>
