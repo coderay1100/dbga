@@ -22,29 +22,20 @@
 		</div>
 	
 		<div class="container" id="page">
-			<form class="form-horizontal" id="loginForm" role="form">
+			<form class="form-horizontal" id="loginForm" role="form" action="login.php">
 				<div class="form-group">
 					<h2 class="col-sm-offset-3 col-sm-10">Log In</h2>
 				</div>
 				<div class="form-group">
 					<label for="inputEmail" class="col-sm-3 control-label">Email</label>
 					<div class="col-sm-5">
-						<input type="email" class="form-control" id="inputEmail" placeholder="Email">
+						<input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="inputPassword" class="col-sm-3 control-label">Password</label>
 					<div class="col-sm-5">
-						<input type="password" class="form-control" id="inputPassword" placeholder="Password">
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-3 col-sm-10">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox"> Remember me
-							</label>
-						</div>
+						<input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
 					</div>
 				</div>
 				<div class="form-group">

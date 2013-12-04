@@ -16,7 +16,7 @@ function falselogin() {
 	return isset($_GET['false']);
 }
 
-$message = "Welcome! Please log in.";
+$message = "";
 if (loggedin()) {
 	$message = "You are now logged in as " . $_SESSION['fname'] . " " . $_SESSION['lname'] . ".";
 }
@@ -47,15 +47,18 @@ if (falselogin()) {
 		</style>
 	</head>
 	<body>
-		<h1>APP NAME</h1>
-		<div><?php echo $message; ?></div>
-		<?php 
+		<div class="container" id="header">
 		
-		if (!loggedin())
-			include "includes/loginform.php";
-		else
-			echo "<a href='logout.php'>Log out</a>";
-		?>
+		</div>
+		
+			<?php 
+			
+			if (!loggedin())
+				include "includes/loginform.php";
+			else {
+				echo "<a href='logout.php'>Log out</a>";
+			}
+			?>
 		
 		<script src="js/jquery.js"></script>
 		<script src="js/bootstrap.min.js"></script>

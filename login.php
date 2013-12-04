@@ -23,7 +23,7 @@ if ($count == 1) {
 	
 	checkuser($result['id']);
 	
-	//header("Location: index.php");
+	header("Location: studentpage.php");
 	
 } else {
 	
@@ -42,7 +42,7 @@ if ($count == 1) {
 		$_SESSION['lname'] = "";
 		$_SESSION['id'] = $result['id'];
 		
-		header("Location: index.php");
+		//header("Location: index.php");
 		
 	} else {
 		echo "Authentication failed, email or password wrong!";
