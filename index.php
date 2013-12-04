@@ -4,17 +4,7 @@
 
 session_start();
 
-function loggedin() {
-	return isset($_SESSION['email']);
-}
-
-function loggedout() {
-	return isset($_GET['logout']);
-}
-
-function falselogin() {
-	return isset($_GET['false']);
-}
+require_once "functions/authorization.php";
 
 $message = "";
 if (loggedin()) {
@@ -33,9 +23,7 @@ if (falselogin()) {
 
 <html>
 	<head>
-		<meta charset="utf-8">
-		<title>TITLE</title>
-		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<?php include "includes/head.php"; ?>
 		<style>
 		body {
 			background-color: #fffff0;

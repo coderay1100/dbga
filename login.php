@@ -23,7 +23,7 @@ if ($count == 1) {
 	
 	checkuser($result['id']);
 	
-	header("Location: studentpage.php");
+	header("Location: student.php");
 	
 } else {
 	
