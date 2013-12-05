@@ -1,4 +1,5 @@
 		<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
 		
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -11,7 +12,7 @@
 					<li class="active"><a href="studentpage.html">Home</a></li>
 
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">University of Indonesia<strong class="caret"></strong></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">University of Indonesia <strong class="caret"></strong></a>
 						<ul class="dropdown-menu">
 							<li><a href="https://www.academic.ui.ac.id">SIAK-NG</a></li>
 							<li><a href="http://www.scele.cs.ui.ac.id">SCELE</a></li>
@@ -28,7 +29,7 @@
 				<ul class="nav navbar-nav navbar-right">
 
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<strong class="caret"></strong></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['fname'] . " " . $_SESSION['lname']; ?> <strong class="caret"></strong></a>
 						<ul class="dropdown-menu">
 							<li><a href="profilepage.html">Profile</a></li>
 							<li><a href="#">CV</a></li>
@@ -40,5 +41,5 @@
 					</li>
 				</ul>
 			</div>
-
+		</div> <!-- /.container -->
 		</nav>

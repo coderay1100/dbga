@@ -66,7 +66,7 @@ require_once "functions/authorization.php";
 			
 		</div> <!--/.container-->
 		
-		<script src="js/jquery.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<script src="js/ajax.js"></script>
 	</body>
 </html>

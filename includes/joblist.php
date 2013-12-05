@@ -73,7 +73,7 @@ foreach ($joblist as $job) {
 <td>{$job['title']}</td>
 <td>GPA > {$job['req']}</td>
 <td>$avb</td>
-<td><a href="#" class="btn btn-sm btn-default" type="button">Details</a></td>
+<td><a href="#" class="btn btn-sm btn-default infobtn" type="button" value="{$job['id']}">Details</a></td>
 </tr>	
 EOT;
 }
