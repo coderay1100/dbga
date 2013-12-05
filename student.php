@@ -26,8 +26,8 @@ require_once "functions/authorization.php";
 					</div>
 					
 					<div class="row clearfix">
-					
-						<!-- Jobs which have been applied -->
+						<!--
+						<!-- Jobs which have been applied 
 						<div class="col-md-2 column">
 							<div class="panel panel-default">
 								<div class="panel-heading">
@@ -38,10 +38,10 @@ require_once "functions/authorization.php";
 								<div class="panel-body">Job n</div>
 								<div class="panel-footer"></div>
 							</div>
-						</div> <!--./column1-->
-						
+						</div> <!--./column1
+						-->
 						<!-- List of jobs -->
-						<div class="col-md-7 column">
+						<div class="col-md-9 column">
 							<table class="table">
 								<thead>
 									<tr>
@@ -57,7 +57,12 @@ require_once "functions/authorization.php";
 									<?php include "includes/joblist.php"; ?>
 								</tbody>
 							</table>
-						</div>
+						</div> <!--/.column2-->
+						
+						<!-- Details box -->
+						<div class="col-md-3 column" id="detail">
+							
+						</div> <!--/.column3-->
 						
 					</div> <!--/.sub-row1-->
 					

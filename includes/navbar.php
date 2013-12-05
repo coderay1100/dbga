@@ -23,8 +23,8 @@
 				</ul>
 				<form class="navbar-form navbar-right" role="search">
 					<div class="form-group">
-						<input type="text" class="form-control" />
-					</div> <button type="submit" class="btn btn-default">Search Job</button>
+						<input type="text" class="form-control" placeholder="Search here"/>
+					</div> <button type="submit" class="btn btn-default">Go</button>
 				</form>
 				<ul class="nav navbar-nav navbar-right">
 

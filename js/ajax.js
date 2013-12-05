@@ -1,12 +1,16 @@
 $(".infobtn").click(function() {
 
-	alert($(this).text());
+	var jid = {"jid" : $(this).attr("value")};
 	
-	/*
+	
 	$.ajax({
 		url: "async/jobdesc.php",
-		type: "async",
-		data: ""
+		type: "GET",
+		async: true,
+		data: jid,
+		success: function(data) {
+			$("#detail").html(data);
+		}
 	});
-	*/
+	
 });

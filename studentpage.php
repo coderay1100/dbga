@@ -253,38 +253,18 @@
 				</div>
 				<div class="col-md-3 column">
 					<dl>
-						<dt>
-							Job Description
-						</dt>
-						<dt>
-							Industry Type
-						</dt>
-						<dd>
-							lalalala
-						</dd>
-						<dt>
-							Address
-						</dt>
-						<dd>
-							street
-						</dd>
-						<dd>
-							city
-						</dd>
-						<dd>
-							province
-						</dd>
-						<dd>
-							country
-						</dd>
-						<dt>
-							Contact
-						</dt>
-						<dd>
-							lalala@lallala.com
-						</dd>
-												
-					</dl> <button type="button" class="btn btn-default btn-block">APPLY</button>
+						<dt>Job Description</dt>
+						<dt>Industry Type</dt>
+						<dd>lalalala</dd>
+						<dt>Address</dt>
+						<dd>street</dd>
+						<dd>city</dd>
+						<dd>province</dd>
+						<dd>country</dd>
+						<dt>Contact</dt>
+						<dd>lalala@lallala.com</dd>
+					</dl>
+					<button type="button" class="btn btn-default btn-block">APPLY</button>
 				</div>
 			</div>
 		</div>
