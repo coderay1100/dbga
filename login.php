@@ -23,9 +23,12 @@ if ($count == 1) {
 	$_SESSION['fid'] = $result['faculty_id'];
 	$_SESSION['id'] = $result['id'];
 	
-	checkuser($result['id']);
+	$role = checkuser($result['id']);
 	
-	header("Location: student.php");
+	if ($role != 'l')
+		header("Location: student.php");
+	else
+		header("Location: owner.php");
 	
 } else {
 	
@@ -42,9 +45,10 @@ if ($count == 1) {
 		$_SESSION['email'] = $email;
 		$_SESSION['fname'] = $result['name'];
 		$_SESSION['lname'] = "";
+		$_SESSION['fid'] = $result['faculty_id'];
 		$_SESSION['id'] = $result['id'];
 		
-		//header("Location: index.php");
+		header("Location: owner.php");
 		
 	} else {
 		echo "Authentication failed, email or password wrong!";
@@ -57,6 +61,7 @@ function checkuser($id) {
 	$email = $_SESSION['email'];
 	$role = getRole($email);
 	$_SESSION['role'] = $role;
+	return $role;
 	
 	//$query = "SELECT * FROM dbga.member_of WHERE member_id=$id;";
 	//$result = pg_query($query) or die("Query failed: " . pg_last_error());

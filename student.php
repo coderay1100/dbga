@@ -26,23 +26,10 @@ require_once "functions/authorization.php";
 					</div>
 					
 					<div class="row clearfix">
-						<!--
-						<!-- Jobs which have been applied 
-						<div class="col-md-2 column">
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h3 class="panel-title">My Jobs</h3>
-								</div>
-								<div class="panel-body">Job 1</div>
-								<div class="panel-body">Job 2</div>
-								<div class="panel-body">Job n</div>
-								<div class="panel-footer"></div>
-							</div>
-						</div> <!--./column1
-						-->
+						
 						<!-- List of jobs -->
 						<div class="col-md-9 column">
-							<table class="table">
+							<table class="table table-hover">
 								<thead>
 									<tr>
 										<th>Job ID</th>
@@ -57,17 +44,25 @@ require_once "functions/authorization.php";
 									<?php include "includes/joblist.php"; ?>
 								</tbody>
 							</table>
-						</div> <!--/.column2-->
+						</div> <!--/.column1-->
 						
 						<!-- Details box -->
-						<div class="col-md-3 column" id="detail">
-							
-						</div> <!--/.column3-->
+						<div class="col-md-3 column" id="detail"></div>
 						
 					</div> <!--/.sub-row1-->
 					
 				</div> <!--/.column1-->
 			</div> <!--/.row1 -->
+			
+			<div class="row clearfix">
+				<div class="col-md-9 column">
+					<blockquote>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
+						</p> <small>Someone famous <cite>Source Title</cite></small>
+					</blockquote>
+				</div>
+			</div>
 			
 		</div> <!--/.container-->
 		

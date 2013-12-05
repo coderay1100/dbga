@@ -37,7 +37,9 @@ SET default_with_oids = false;
 
 CREATE TABLE alumnus (
     id integer NOT NULL,
-    applicant_id integer
+    applicant_id integer,
+    enroll_year integer,
+    grad_year integer
 );
 
 
@@ -84,7 +86,8 @@ CREATE TABLE company (
     name character varying(50) NOT NULL,
     email character varying(30) NOT NULL,
     owner_id integer,
-    password character varying(30)
+    password character varying(30),
+    faculty_id integer
 );
 
 
@@ -154,7 +157,8 @@ CREATE TABLE faculty_member (
     password character varying(15) NOT NULL,
     fname character varying(30) NOT NULL,
     lname character varying(30),
-    faculty_id integer
+    faculty_id integer,
+    gender character(1)
 );
 
 
@@ -314,7 +318,8 @@ ALTER TABLE dbga.research_project OWNER TO postgres;
 CREATE TABLE student (
     id integer NOT NULL,
     current_program character(1) NOT NULL,
-    applicant_id integer
+    applicant_id integer,
+    enroll_year integer
 );
 
 
@@ -366,8 +371,8 @@ ALTER TABLE ONLY job_owner ALTER COLUMN id SET DEFAULT nextval('job_owner_id_seq
 -- Data for Name: alumnus; Type: TABLE DATA; Schema: dbga; Owner: postgres
 --
 
-COPY alumnus (id, applicant_id) FROM stdin;
-2	\N
+COPY alumnus (id, applicant_id, enroll_year, grad_year) FROM stdin;
+2	\N	2006	2012
 \.
 
 
@@ -390,8 +395,8 @@ SELECT pg_catalog.setval('applicant_id_seq', 1, false);
 -- Data for Name: company; Type: TABLE DATA; Schema: dbga; Owner: postgres
 --
 
-COPY company (id, name, email, owner_id, password) FROM stdin;
-1	Google	contact@gmail.com	1	password
+COPY company (id, name, email, owner_id, password, faculty_id) FROM stdin;
+1	Google	contact@gmail.com	1	password	1
 \.
 
 
@@ -422,10 +427,10 @@ SELECT pg_catalog.setval('faculty_id_seq', 1, true);
 -- Data for Name: faculty_member; Type: TABLE DATA; Schema: dbga; Owner: postgres
 --
 
-COPY faculty_member (id, email, password, fname, lname, faculty_id) FROM stdin;
-1	raibima.imam@ui.ac.id	password	Raibima	Putra	1
-2	nuryahya.prasetyo@ui.ac.id	password	Nuryahya	Prasetyo	1
-3	bondry@gmail.com	password	Handri	Santoso	1
+COPY faculty_member (id, email, password, fname, lname, faculty_id, gender) FROM stdin;
+1	raibima.imam@ui.ac.id	password	Raibima	Putra	1	m
+2	nuryahya.prasetyo@ui.ac.id	password	Nuryahya	Prasetyo	1	m
+3	bondry@gmail.com	password	Handri	Santoso	1	m
 \.
 
 
@@ -519,8 +524,8 @@ COPY research_project (job_id) FROM stdin;
 -- Data for Name: student; Type: TABLE DATA; Schema: dbga; Owner: postgres
 --
 
-COPY student (id, current_program, applicant_id) FROM stdin;
-1	u	\N
+COPY student (id, current_program, applicant_id, enroll_year) FROM stdin;
+1	u	\N	2012
 \.
 
 
@@ -610,6 +615,14 @@ ALTER TABLE ONLY alumnus
 
 ALTER TABLE ONLY alumnus
     ADD CONSTRAINT alumnus_id_fkey FOREIGN KEY (id) REFERENCES faculty_member(id);
+
+
+--
+-- Name: company_faculty_id_fkey; Type: FK CONSTRAINT; Schema: dbga; Owner: postgres
+--
+
+ALTER TABLE ONLY company
+    ADD CONSTRAINT company_faculty_id_fkey FOREIGN KEY (faculty_id) REFERENCES faculty(id);
 
 
 --

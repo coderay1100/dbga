@@ -9,7 +9,7 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="studentpage.html">Home</a></li>
+					<li class="active"><a href="student.php">Home</a></li>
 
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">University of Indonesia <strong class="caret"></strong></a>
@@ -31,7 +31,7 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['fname'] . " " . $_SESSION['lname']; ?> <strong class="caret"></strong></a>
 						<ul class="dropdown-menu">
-							<li><a href="profilepage.html">Profile</a></li>
+							<li><a href="profile.php">Profile</a></li>
 							<li><a href="#">CV</a></li>
 							<li><a href="#">Settings</a></li>
 							<li><a href="#">Help</a></li>
