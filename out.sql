@@ -212,7 +212,9 @@ CREATE TABLE job (
     title character varying(50) NOT NULL,
     owner_id integer,
     faculty_id integer,
-    requirement double precision
+    requirement double precision,
+    description text,
+    industry character varying(30)
 );
 
 
@@ -423,6 +425,7 @@ SELECT pg_catalog.setval('faculty_id_seq', 1, true);
 COPY faculty_member (id, email, password, fname, lname, faculty_id) FROM stdin;
 1	raibima.imam@ui.ac.id	password	Raibima	Putra	1
 2	nuryahya.prasetyo@ui.ac.id	password	Nuryahya	Prasetyo	1
+3	bondry@gmail.com	password	Handri	Santoso	1
 \.
 
 
@@ -455,9 +458,10 @@ COPY internship (job_id) FROM stdin;
 -- Data for Name: job; Type: TABLE DATA; Schema: dbga; Owner: postgres
 --
 
-COPY job (id, title, owner_id, faculty_id, requirement) FROM stdin;
-1	Software Engineer	1	1	3.2999999999999998
-2	Database Administrator	1	1	3
+COPY job (id, title, owner_id, faculty_id, requirement, description, industry) FROM stdin;
+1	Software Engineer	1	1	3.2999999999999998	Cupcake ipsum dolor sit amet apple pie brownie bear claw. I love jujubes I love chupa chups pie. Icing I love jujubes. Candy canes candy canes gingerbread chupa chups bonbon I love candy canes pie chocolate bar.	Information Technology
+2	Database Administrator	1	1	3	Cupcake ipsum dolor sit amet danish I love powder. Candy canes macaroon ice cream cupcake danish tart bear claw. I love jelly beans cake apple pie donut chocolate cake muffin jelly-o pudding.	Information Technology
+3	TA: Calculus 2012	2	1	3.5	Teaching assistant for 2012 Calculus class	Educational
 \.
 
 
@@ -474,6 +478,7 @@ SELECT pg_catalog.setval('job_id_seq', 1, false);
 
 COPY job_owner (id) FROM stdin;
 1
+2
 \.
 
 
@@ -489,6 +494,7 @@ SELECT pg_catalog.setval('job_owner_id_seq', 1, false);
 --
 
 COPY lecturer (id, owner_id) FROM stdin;
+3	2
 \.
 
 
@@ -497,6 +503,7 @@ COPY lecturer (id, owner_id) FROM stdin;
 --
 
 COPY part_time_job (job_id) FROM stdin;
+3
 \.
 
 
