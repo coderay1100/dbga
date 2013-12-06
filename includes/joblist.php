@@ -65,15 +65,15 @@ foreach ($joblist as $job) {
 			$avb = "Not Available";
 		}
 	}
-
+	$extra = ($class != 'success') ? "disabled='disabled'" : "";
 	echo <<<EOT
-<tr class="$class">
+<tr class="$class" value="a">
 <td>{$job['id']}</td>
 <td>{$job['cat']}</td>
 <td>{$job['title']}</td>
 <td>GPA > {$job['req']}</td>
 <td>$avb</td>
-<td><a href="#" class="btn btn-sm btn-default infobtn" type="button" value="{$job['id']}">Details</a></td>
+<td><button class="btn btn-sm btn-default infobtn"  $extra type="button" value="{$job['id']}">Details</button></td>
 </tr>	
 EOT;
 }
