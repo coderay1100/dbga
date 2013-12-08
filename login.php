@@ -47,6 +47,7 @@ if ($count == 1) {
 		$_SESSION['lname'] = "";
 		$_SESSION['fid'] = $result['faculty_id'];
 		$_SESSION['id'] = $result['id'];
+		$_SESSION['oid'] = $result['owner_id'];
 		
 		header("Location: owner.php");
 		
@@ -97,6 +98,9 @@ function facultyLogIn() {
 	} else {
 		echo "Account error. Please contact the administrator";
 		exit;
+	}
+	if ($role == 'l') {
+		$_SESSION['oid'] = fetchResult($r3)['owner_id'];
 	}
 	return $role;
 }

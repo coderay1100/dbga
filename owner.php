@@ -23,7 +23,33 @@ require_once "functions/authorization.php";
 						<h1>We're the boss here! <small>Let's recruit people!</small></h1>
 					</div> <!--/page-header-->
 					
+					<!-- Content -->
+					<div class="row clearfix">
 					
+						<!-- List of my offerings -->
+						<div class="col-md-9 column">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Job ID</th>
+										<th>Category</th>
+										<th>Title</th>
+										<th>Requirement</th>
+										<th></th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php include "includes/offers.php"; ?>
+								</tbody>
+							</table>
+						<a href="addjob.php" class="btn btn-link"><span class='glyphicon glyphicon-plus'></span> Add a job..</a>
+						</div> <!--/column1-->
+						
+						<!-- Details -->
+						<div class="col-md-3 column" id="detail"></div>
+						
+					</div> <!--/content-->
 					
 					
 				</div>

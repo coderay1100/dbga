@@ -2,6 +2,8 @@
 
 require_once "../functions/dbconnect.php";
 
+session_start();
+
 $con = connectDB();
 
 $jid = $_GET['jid'];
@@ -30,6 +32,11 @@ if (pg_num_rows($result) == 1) {
 	$job['employer'] = $line['fname'] . " " . $line['lname'];
 }
 
+$value = "Apply <span class='glyphicon glyphicon-ok'></span>";
+if (isset($_SESSION['oid'])) {
+	$value = "Edit <span class='glyphicon glyphicon-pencil'></span>";
+}
+
 echo <<<EOS
 <dl class="text-center">
 	<dt>Job Description</dt>
@@ -39,17 +46,17 @@ echo <<<EOS
 	<dt>Industry Type</dt>
 	<dd>{$job['industry']}</dd>
 	<dt>Address</dt>
-	<dd>-</dd>
+	<dd>{$job['address']}</dd>
 	<dt>City</dt>
-	<dd>-</dd>
+	<dd>{$job['city']}</dd>
 	<dt>Province</dt>
-	<dd>-</dd>
+	<dd>{$job['province']}</dd>
 	<dt>Country</dt>
-	<dd>-</dd>
+	<dd>{$job['country']}</dd>
 	<dt>Contact</dt>
 	<dd><a href='{$job['contact']}'>{$job['contact']}</a></dd>
 	<br>
-	<button type="button" class="btn btn-danger middle">Apply</button>
+	<button type="button" class="btn btn-primary middle">$value</button>
 </dl>
 EOS;
 ?>

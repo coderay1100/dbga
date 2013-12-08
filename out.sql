@@ -190,7 +190,8 @@ ALTER SEQUENCE faculty_member_id_seq OWNED BY faculty_member.id;
 --
 
 CREATE TABLE full_time_job (
-    job_id integer NOT NULL
+    job_id integer NOT NULL,
+    working_hours integer
 );
 
 
@@ -201,7 +202,8 @@ ALTER TABLE dbga.full_time_job OWNER TO postgres;
 --
 
 CREATE TABLE internship (
-    job_id integer NOT NULL
+    job_id integer NOT NULL,
+    duration integer
 );
 
 
@@ -218,7 +220,11 @@ CREATE TABLE job (
     faculty_id integer,
     requirement double precision,
     description text,
-    industry character varying(30)
+    industry character varying(30),
+    address character varying(100),
+    city character varying(30),
+    province character varying(30),
+    country character varying(30)
 );
 
 
@@ -283,7 +289,9 @@ ALTER SEQUENCE job_owner_id_seq OWNED BY job_owner.id;
 
 CREATE TABLE lecturer (
     id integer NOT NULL,
-    owner_id integer
+    owner_id integer,
+    salary integer,
+    bank_account numeric(15,0)
 );
 
 
@@ -294,7 +302,9 @@ ALTER TABLE dbga.lecturer OWNER TO postgres;
 --
 
 CREATE TABLE part_time_job (
-    job_id integer NOT NULL
+    job_id integer NOT NULL,
+    salary_per_hour integer,
+    hours_per_week integer
 );
 
 
@@ -305,7 +315,9 @@ ALTER TABLE dbga.part_time_job OWNER TO postgres;
 --
 
 CREATE TABLE research_project (
-    job_id integer NOT NULL
+    job_id integer NOT NULL,
+    leader character varying(50),
+    goals text
 );
 
 
@@ -445,8 +457,8 @@ SELECT pg_catalog.setval('faculty_member_id_seq', 1, false);
 -- Data for Name: full_time_job; Type: TABLE DATA; Schema: dbga; Owner: postgres
 --
 
-COPY full_time_job (job_id) FROM stdin;
-1
+COPY full_time_job (job_id, working_hours) FROM stdin;
+1	\N
 \.
 
 
@@ -454,8 +466,8 @@ COPY full_time_job (job_id) FROM stdin;
 -- Data for Name: internship; Type: TABLE DATA; Schema: dbga; Owner: postgres
 --
 
-COPY internship (job_id) FROM stdin;
-2
+COPY internship (job_id, duration) FROM stdin;
+2	\N
 \.
 
 
@@ -463,10 +475,10 @@ COPY internship (job_id) FROM stdin;
 -- Data for Name: job; Type: TABLE DATA; Schema: dbga; Owner: postgres
 --
 
-COPY job (id, title, owner_id, faculty_id, requirement, description, industry) FROM stdin;
-1	Software Engineer	1	1	3.2999999999999998	Cupcake ipsum dolor sit amet apple pie brownie bear claw. I love jujubes I love chupa chups pie. Icing I love jujubes. Candy canes candy canes gingerbread chupa chups bonbon I love candy canes pie chocolate bar.	Information Technology
-2	Database Administrator	1	1	3	Cupcake ipsum dolor sit amet danish I love powder. Candy canes macaroon ice cream cupcake danish tart bear claw. I love jelly beans cake apple pie donut chocolate cake muffin jelly-o pudding.	Information Technology
-3	TA: Calculus 2012	2	1	3.5	Teaching assistant for 2012 Calculus class	Educational
+COPY job (id, title, owner_id, faculty_id, requirement, description, industry, address, city, province, country) FROM stdin;
+2	Database Administrator	1	1	3	Cupcake ipsum dolor sit amet danish I love powder. Candy canes macaroon ice cream cupcake danish tart bear claw. I love jelly beans cake apple pie donut chocolate cake muffin jelly-o pudding.	Information Technology	Mountain View	Silicon Valley	California	USA
+1	Software Engineer	1	1	3.2999999999999998	Cupcake ipsum dolor sit amet apple pie brownie bear claw. I love jujubes I love chupa chups pie. Icing I love jujubes. Candy canes candy canes gingerbread chupa chups bonbon I love candy canes pie chocolate bar.	Information Technology	Mountain View	Silicon Valley	California	USA
+3	TA: Calculus 2012	2	1	3.5	Teaching assistant for 2012 Calculus class	Educational	Universitas Indonesia	Depok	West Java	Indonesia
 \.
 
 
@@ -474,7 +486,7 @@ COPY job (id, title, owner_id, faculty_id, requirement, description, industry) F
 -- Name: job_id_seq; Type: SEQUENCE SET; Schema: dbga; Owner: postgres
 --
 
-SELECT pg_catalog.setval('job_id_seq', 1, false);
+SELECT pg_catalog.setval('job_id_seq', 4, true);
 
 
 --
@@ -498,8 +510,8 @@ SELECT pg_catalog.setval('job_owner_id_seq', 1, false);
 -- Data for Name: lecturer; Type: TABLE DATA; Schema: dbga; Owner: postgres
 --
 
-COPY lecturer (id, owner_id) FROM stdin;
-3	2
+COPY lecturer (id, owner_id, salary, bank_account) FROM stdin;
+3	2	\N	\N
 \.
 
 
@@ -507,8 +519,8 @@ COPY lecturer (id, owner_id) FROM stdin;
 -- Data for Name: part_time_job; Type: TABLE DATA; Schema: dbga; Owner: postgres
 --
 
-COPY part_time_job (job_id) FROM stdin;
-3
+COPY part_time_job (job_id, salary_per_hour, hours_per_week) FROM stdin;
+3	\N	\N
 \.
 
 
@@ -516,7 +528,7 @@ COPY part_time_job (job_id) FROM stdin;
 -- Data for Name: research_project; Type: TABLE DATA; Schema: dbga; Owner: postgres
 --
 
-COPY research_project (job_id) FROM stdin;
+COPY research_project (job_id, leader, goals) FROM stdin;
 \.
 
 
@@ -646,7 +658,7 @@ ALTER TABLE ONLY faculty_member
 --
 
 ALTER TABLE ONLY full_time_job
-    ADD CONSTRAINT full_time_job_job_id_fkey FOREIGN KEY (job_id) REFERENCES job(id);
+    ADD CONSTRAINT full_time_job_job_id_fkey FOREIGN KEY (job_id) REFERENCES job(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -654,7 +666,7 @@ ALTER TABLE ONLY full_time_job
 --
 
 ALTER TABLE ONLY internship
-    ADD CONSTRAINT internship_job_id_fkey FOREIGN KEY (job_id) REFERENCES job(id);
+    ADD CONSTRAINT internship_job_id_fkey FOREIGN KEY (job_id) REFERENCES job(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -694,7 +706,7 @@ ALTER TABLE ONLY lecturer
 --
 
 ALTER TABLE ONLY part_time_job
-    ADD CONSTRAINT part_time_job_job_id_fkey FOREIGN KEY (job_id) REFERENCES job(id);
+    ADD CONSTRAINT part_time_job_job_id_fkey FOREIGN KEY (job_id) REFERENCES job(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -702,7 +714,7 @@ ALTER TABLE ONLY part_time_job
 --
 
 ALTER TABLE ONLY research_project
-    ADD CONSTRAINT research_project_job_id_fkey FOREIGN KEY (job_id) REFERENCES job(id);
+    ADD CONSTRAINT research_project_job_id_fkey FOREIGN KEY (job_id) REFERENCES job(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
