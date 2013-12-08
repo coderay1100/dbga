@@ -25,6 +25,20 @@ ALTER SCHEMA dbga OWNER TO postgres;
 COMMENT ON SCHEMA dbga IS 'Database Group Assignment';
 
 
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
 SET search_path = dbga, pg_catalog;
 
 SET default_tablespace = '';
@@ -499,6 +513,11 @@ COPY activity (cv_id, activity) FROM stdin;
 
 COPY alumnus (id, applicant_id, enroll_year, grad_year) FROM stdin;
 2	\N	2006	2012
+6	\N	2008	2012
+7	\N	2007	2012
+8	\N	2006	2010
+9	\N	2000	2002
+10	\N	2003	2008
 \.
 
 
@@ -534,6 +553,15 @@ COPY award (cv_id, award) FROM stdin;
 
 COPY company (id, name, email, owner_id, password, faculty_id) FROM stdin;
 1	Google	contact@gmail.com	1	password	1
+2	Microsovt	micro@sovt.com	2	1234	1
+3	Bayern Med	bayern@med.com	3	1234	2
+4	Advocate Inc.	advocate@inc.com	4	1234	4
+5	Daihatsun Motors	daihatsun@motors.com	5	1234	3
+6	Communication Inc.	Com@inc.com	6	1234	5
+7	Apple Inc.	apple@inc.com	7	1234	1
+8	Ford 	fors@cars.com	8	1234	3
+9	Paracetamol Inc.	para@cetamol.com	9	1234	2
+10	Kia Motors	kia@motors.com	10	1234	3
 \.
 
 
@@ -541,7 +569,7 @@ COPY company (id, name, email, owner_id, password, faculty_id) FROM stdin;
 -- Name: company_id_seq; Type: SEQUENCE SET; Schema: dbga; Owner: postgres
 --
 
-SELECT pg_catalog.setval('company_id_seq', 1, false);
+SELECT pg_catalog.setval('company_id_seq', 10, true);
 
 
 --
@@ -582,6 +610,10 @@ SELECT pg_catalog.setval('cv_id_seq', 1, true);
 
 COPY faculty (id, name) FROM stdin;
 1	Faculty of Computer Science
+2	Medical School
+3	Faculty Of Engineering
+4	Faculty of Law
+5	Faculty of Political Science
 \.
 
 
@@ -589,7 +621,7 @@ COPY faculty (id, name) FROM stdin;
 -- Name: faculty_id_seq; Type: SEQUENCE SET; Schema: dbga; Owner: postgres
 --
 
-SELECT pg_catalog.setval('faculty_id_seq', 1, true);
+SELECT pg_catalog.setval('faculty_id_seq', 5, true);
 
 
 --
@@ -600,6 +632,18 @@ COPY faculty_member (id, email, password, fname, lname, faculty_id, gender, cv_i
 2	nuryahya.prasetyo@ui.ac.id	password	Nuryahya	Prasetyo	1	m	\N
 3	bondry@gmail.com	password	Handri	Santoso	1	m	\N
 1	raibima.imam@ui.ac.id	password	Raibima	Putra	1	m	1
+4	gavin@norman.com	1234	gavin	norman	2	M	\N
+5	rendy@yonas.com	1234	rendy	yonas	3	M	\N
+6	Maha@mubarak.com	1234	maha	mubarak	4	F	\N
+7	Rifky@ryan.com	1234	rifky	ryan	5	M	\N
+8	Mar@shila.com	1234	marshila	\N	1	F	\N
+9	Dul@avila.com	1234	dul	avila	2	M	\N
+10	Kus@nur.com	1234	kus	nur	3	M	\N
+11	aidi@fauzan.com	1234	aidi	fauzan	4	M	\N
+12	Susilo@bangbang.com	1234	susilo	bangbang	4	M	\N
+13	Lea@jessy.com	1234	lea	jessy	2	F	\N
+14	Fay@bee.com	1234	fay	bee	5	F	\N
+15	Taiocruz@cruz.com	1234	taio	cruz	4	F	\N
 \.
 
 
@@ -607,7 +651,7 @@ COPY faculty_member (id, email, password, fname, lname, faculty_id, gender, cv_i
 -- Name: faculty_member_id_seq; Type: SEQUENCE SET; Schema: dbga; Owner: postgres
 --
 
-SELECT pg_catalog.setval('faculty_member_id_seq', 1, false);
+SELECT pg_catalog.setval('faculty_member_id_seq', 15, true);
 
 
 --
@@ -653,6 +697,14 @@ SELECT pg_catalog.setval('job_id_seq', 5, true);
 COPY job_owner (id) FROM stdin;
 1
 2
+3
+4
+5
+6
+7
+8
+9
+10
 \.
 
 
@@ -660,7 +712,7 @@ COPY job_owner (id) FROM stdin;
 -- Name: job_owner_id_seq; Type: SEQUENCE SET; Schema: dbga; Owner: postgres
 --
 
-SELECT pg_catalog.setval('job_owner_id_seq', 1, false);
+SELECT pg_catalog.setval('job_owner_id_seq', 10, true);
 
 
 --
@@ -669,6 +721,11 @@ SELECT pg_catalog.setval('job_owner_id_seq', 1, false);
 
 COPY lecturer (id, owner_id, salary, bank_account) FROM stdin;
 3	2	\N	\N
+11	1	12000	1111
+12	3	12000	2222
+13	4	12000	3333
+14	5	12000	4444
+15	6	12000	5555
 \.
 
 
@@ -695,6 +752,10 @@ COPY research_project (job_id, leader, goals) FROM stdin;
 
 COPY student (id, current_program, applicant_id, enroll_year) FROM stdin;
 1	u	1	2012
+2	u	\N	2006
+3	u	\N	2011
+4	M	\N	2006
+5	u	\N	2012
 \.
 
 
@@ -952,6 +1013,16 @@ ALTER TABLE ONLY student
 
 ALTER TABLE ONLY student
     ADD CONSTRAINT student_id_fkey FOREIGN KEY (id) REFERENCES faculty_member(id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
