@@ -56,7 +56,7 @@ echo <<<EOS
 	<dt>Contact</dt>
 	<dd><a href='{$job['contact']}'>{$job['contact']}</a></dd>
 	<br>
-	<button type="button" class="btn btn-primary middle">$value</button>
+	<a href="apply.php?id=$jid" class="btn btn-primary middle">$value</a>
 </dl>
 EOS;
 ?>

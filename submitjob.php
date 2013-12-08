@@ -10,7 +10,7 @@ $job = $_POST;
 
 $con = connectDB();
 
-$query = "INSERT INTO dbga.job VALUES (nextval('dbga.job_id_seq'), '{$job['title']}', {$_SESSION['oid']}, {$_SESSION['fid']}, 3.3, {$job['desc']}, '{$job['itype']}', '{$job['address']}', '{$job['city']}', '{$job['province']}', '{$job['country']}')";
+$query = "INSERT INTO dbga.job VALUES (nextval('dbga.job_id_seq'), '{$job['title']}', {$_SESSION['oid']}, {$_SESSION['fid']}, 3.3, '{$job['desc']}', '{$job['itype']}', '{$job['address']}', '{$job['city']}', '{$job['province']}', '{$job['country']}')";
 
 $result = queryDB($query);
 
