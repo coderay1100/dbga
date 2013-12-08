@@ -54,6 +54,13 @@ while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
 
 //print_r($joblist);
 
+$role = $_SESSION['role'];
+if ($role == 's') {
+	$result = queryDB("SELECT applicant_id FROM dbga.student WHERE id={$_SESSION['id']}");
+} else {
+	$result = queryDB("SELECT applicant_id FROM dbga.alumnus WHERE id={$_SESSION['id']}");
+}
+$appid = fetchResult($result)['applicant_id'];
 
 foreach ($joblist as $job) {
 	
@@ -64,6 +71,10 @@ foreach ($joblist as $job) {
 			$class = "danger";
 			$avb = "Not Available";
 		}
+		if ($appid > 0) {
+			$class = "danger";
+			$avb = "Not Available";
+		} 
 	}
 	$extra = ($class != 'success') ? "disabled='disabled'" : "";
 	echo <<<EOT

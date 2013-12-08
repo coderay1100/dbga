@@ -67,6 +67,27 @@ require_once "functions/authorization.php";
 		</div> <!--/.container-->
 		
 		<script src="js/bootstrap.min.js"></script>
+		<script>
+		<?php
+		if (isset($_GET['cv'])) {
+			echo <<<EOS
+alert("Please complete your CV!");
+EOS;
+		}
+		
+		if (isset($_GET['success'])) {
+			echo <<<EOS
+$(".infobtn").attr("disabled", true);	
+EOS;
+		}
+		
+		if (isset($_GET['saved'])) {
+			echo <<<EOS
+alert("Your CV has been saved");	
+EOS;
+		}
+		?>
+		</script>
 		<script src="js/ajax.js"></script>
 	</body>
 </html>

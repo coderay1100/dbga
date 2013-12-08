@@ -32,7 +32,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['fname'] . " " . $_SESSION['lname']; ?> <strong class="caret"></strong></a>
 						<ul class="dropdown-menu">
 							<li><a href="profile.php">Profile</a></li>
-							<li><a href="#">CV</a></li>
+							<li><a href="addcv.php">CV</a></li>
 							<li class="disabled"><a href="#">Settings</a></li>
 							<li class="disabled"><a href="#">Help</a></li>
 							<li class="divider"></li>
