@@ -38,7 +38,7 @@ $listbtn = "";
 if (isset($_SESSION['oid'])) {
 	$value = "<span class='glyphicon glyphicon-pencil'></span>";
 	$link = "addjob.php?edit=$jid";
-	$listbtn = '<a href="#" class="btn btn-success middle"><span class="glyphicon glyphicon-list"></span></a>';
+	$listbtn = '<a href="viewapp.php?id=' . $jid . '" class="btn btn-success middle"><span class="glyphicon glyphicon-list"></span></a>';
 }
 
 echo <<<EOS

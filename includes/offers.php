@@ -15,8 +15,8 @@ while ($job = fetchResult($result)) {
 <td>$jobcategory</td>
 <td>{$job['title']}</td>
 <td>GPA > {$job['requirement']}</td> 	
-<td><button class="btn btn-sm btn-warning infobtn" type="button" value="{$job['id']}"><span class="glyphicon glyphicon-info-sign"></button></td>
-<td><a href="deletejob.php?id={$job['id']}" class="btn btn-sm btn-danger deletebtn" type="button"><span class="glyphicon glyphicon-trash"></a></td>
+<td><button class="btn btn-sm btn-warning infobtn" type="button" value="{$job['id']}"><span class="glyphicon glyphicon-info-sign"></span></button></td>
+<td><a href="deletejob.php?id={$job['id']}" class="btn btn-sm btn-danger deletebtn" type="button"><span class="glyphicon glyphicon-trash"></span></a></td>
 </tr>	
 EOT;
 }

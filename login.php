@@ -27,8 +27,11 @@ if ($count == 1) {
 	
 	if ($role != 'l')
 		header("Location: student.php");
-	else
+	else {
+		$result = queryDB("SELECT owner_id FROM dbga.lecturer WHERE id={$_SESSION['id']}");
+		$_SESSION['oid'] = fetchResult($result)['owner_id'];
 		header("Location: owner.php");
+	}
 	
 } else {
 	
