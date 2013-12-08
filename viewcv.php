@@ -225,6 +225,7 @@ $data['name'] = $_GET['fname'] . " " . $_GET['lname'];
 			
 		</div> <!--/.container-->
 		
+		<script src="js/bootstrap.min.js"></script>
 	<body>
 	
 </html>

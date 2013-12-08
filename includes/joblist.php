@@ -71,10 +71,10 @@ foreach ($joblist as $job) {
 			$class = "danger";
 			$avb = "Not Available";
 		}
-		if ($appid > 0) {
-			$class = "danger";
-			$avb = "Not Available";
-		} 
+	}
+	if ($appid > 0) {
+		$class = "danger";
+		$avb = "Not Available";
 	}
 	$extra = ($class != 'success') ? "disabled='disabled'" : "";
 	echo <<<EOT

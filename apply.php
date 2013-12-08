@@ -20,6 +20,8 @@ queryDB("INSERT INTO dbga.applicant VALUES (nextval('dbga.applicant_id_seq'), $c
 $role = $_SESSION['role'];
 if ($role == 's')
 	queryDB("UPDATE dbga.student SET applicant_id=currval('dbga.applicant_id_seq') WHERE id={$_SESSION['id']}");
+else
+	queryDB("UPDATE dbga.alumnus SET applicant_id=currval('dbga.applicant_id_seq') WHERE id={$_SESSION['id']}");
 
 header("Location: student.php?success");
 

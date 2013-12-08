@@ -3,8 +3,6 @@
 session_start();
 require_once "functions/dbconnect.php";
 
-echo "hello";
-
 $con = connectDB();
 
 $p = $_POST;
@@ -34,7 +32,7 @@ foreach ($awd as $val) {
 	queryDB("INSERT INTO dbga.award VALUES (currval('dbga.cv_id_seq'), '$val')");
 }
 
-queryDB("UPDATE faculty_member SET cv_id=currval('dbga.cv_id_seq') WHERE id={$_SESSION['id']}");
+queryDB("UPDATE dbga.faculty_member SET cv_id=currval('dbga.cv_id_seq') WHERE id={$_SESSION['id']}");
 
 header("Location: student.php?saved");
 
