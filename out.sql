@@ -32,6 +32,18 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: activity; Type: TABLE; Schema: dbga; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE activity (
+    cv_id integer NOT NULL,
+    activity character varying(50)
+);
+
+
+ALTER TABLE dbga.activity OWNER TO postgres;
+
+--
 -- Name: alumnus; Type: TABLE; Schema: dbga; Owner: postgres; Tablespace: 
 --
 
@@ -50,7 +62,11 @@ ALTER TABLE dbga.alumnus OWNER TO postgres;
 --
 
 CREATE TABLE applicant (
-    id integer NOT NULL
+    id integer NOT NULL,
+    cv_id integer,
+    date_time timestamp without time zone,
+    status boolean,
+    job_id integer
 );
 
 
@@ -76,6 +92,18 @@ ALTER TABLE dbga.applicant_id_seq OWNER TO postgres;
 
 ALTER SEQUENCE applicant_id_seq OWNED BY applicant.id;
 
+
+--
+-- Name: award; Type: TABLE; Schema: dbga; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE award (
+    cv_id integer NOT NULL,
+    award character varying(50)
+);
+
+
+ALTER TABLE dbga.award OWNER TO postgres;
 
 --
 -- Name: company; Type: TABLE; Schema: dbga; Owner: postgres; Tablespace: 
@@ -112,6 +140,74 @@ ALTER TABLE dbga.company_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE company_id_seq OWNED BY company.id;
+
+
+--
+-- Name: cv; Type: TABLE; Schema: dbga; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cv (
+    company character varying(50),
+    "position" character varying(50),
+    location character varying(50),
+    start_date date,
+    end_date date,
+    honor character varying(50),
+    study_field character varying(50),
+    gpa double precision,
+    start_year numeric(4,0),
+    end_year numeric(4,0),
+    degree character varying(30),
+    school character varying(50),
+    id integer NOT NULL
+);
+
+
+ALTER TABLE dbga.cv OWNER TO postgres;
+
+--
+-- Name: cv_activity; Type: TABLE; Schema: dbga; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cv_activity (
+    applicant_id integer NOT NULL,
+    activity character varying(50)
+);
+
+
+ALTER TABLE dbga.cv_activity OWNER TO postgres;
+
+--
+-- Name: cv_award; Type: TABLE; Schema: dbga; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cv_award (
+    applicant_id integer NOT NULL,
+    award character varying(50)
+);
+
+
+ALTER TABLE dbga.cv_award OWNER TO postgres;
+
+--
+-- Name: cv_id_seq; Type: SEQUENCE; Schema: dbga; Owner: postgres
+--
+
+CREATE SEQUENCE cv_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE dbga.cv_id_seq OWNER TO postgres;
+
+--
+-- Name: cv_id_seq; Type: SEQUENCE OWNED BY; Schema: dbga; Owner: postgres
+--
+
+ALTER SEQUENCE cv_id_seq OWNED BY cv.id;
 
 
 --
@@ -158,7 +254,8 @@ CREATE TABLE faculty_member (
     fname character varying(30) NOT NULL,
     lname character varying(30),
     faculty_id integer,
-    gender character(1)
+    gender character(1),
+    cv_id integer
 );
 
 
@@ -355,6 +452,13 @@ ALTER TABLE ONLY company ALTER COLUMN id SET DEFAULT nextval('company_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: dbga; Owner: postgres
 --
 
+ALTER TABLE ONLY cv ALTER COLUMN id SET DEFAULT nextval('cv_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: dbga; Owner: postgres
+--
+
 ALTER TABLE ONLY faculty ALTER COLUMN id SET DEFAULT nextval('faculty_id_seq'::regclass);
 
 
@@ -380,6 +484,16 @@ ALTER TABLE ONLY job_owner ALTER COLUMN id SET DEFAULT nextval('job_owner_id_seq
 
 
 --
+-- Data for Name: activity; Type: TABLE DATA; Schema: dbga; Owner: postgres
+--
+
+COPY activity (cv_id, activity) FROM stdin;
+1	Student Org
+1	Student
+\.
+
+
+--
 -- Data for Name: alumnus; Type: TABLE DATA; Schema: dbga; Owner: postgres
 --
 
@@ -392,7 +506,8 @@ COPY alumnus (id, applicant_id, enroll_year, grad_year) FROM stdin;
 -- Data for Name: applicant; Type: TABLE DATA; Schema: dbga; Owner: postgres
 --
 
-COPY applicant (id) FROM stdin;
+COPY applicant (id, cv_id, date_time, status, job_id) FROM stdin;
+1	1	2013-12-08 14:25:55.747	f	3
 \.
 
 
@@ -400,7 +515,17 @@ COPY applicant (id) FROM stdin;
 -- Name: applicant_id_seq; Type: SEQUENCE SET; Schema: dbga; Owner: postgres
 --
 
-SELECT pg_catalog.setval('applicant_id_seq', 1, false);
+SELECT pg_catalog.setval('applicant_id_seq', 2, true);
+
+
+--
+-- Data for Name: award; Type: TABLE DATA; Schema: dbga; Owner: postgres
+--
+
+COPY award (cv_id, award) FROM stdin;
+1	Best Luck
+1	Best Brain
+\.
 
 
 --
@@ -417,6 +542,38 @@ COPY company (id, name, email, owner_id, password, faculty_id) FROM stdin;
 --
 
 SELECT pg_catalog.setval('company_id_seq', 1, false);
+
+
+--
+-- Data for Name: cv; Type: TABLE DATA; Schema: dbga; Owner: postgres
+--
+
+COPY cv (company, "position", location, start_date, end_date, honor, study_field, gpa, start_year, end_year, degree, school, id) FROM stdin;
+Google	CEO		2000-10-10	2001-10-10	-	Computer Science	3.7000000000000002	2012	2015	Bachelor	University of Indonesia	1
+\.
+
+
+--
+-- Data for Name: cv_activity; Type: TABLE DATA; Schema: dbga; Owner: postgres
+--
+
+COPY cv_activity (applicant_id, activity) FROM stdin;
+\.
+
+
+--
+-- Data for Name: cv_award; Type: TABLE DATA; Schema: dbga; Owner: postgres
+--
+
+COPY cv_award (applicant_id, award) FROM stdin;
+\.
+
+
+--
+-- Name: cv_id_seq; Type: SEQUENCE SET; Schema: dbga; Owner: postgres
+--
+
+SELECT pg_catalog.setval('cv_id_seq', 1, true);
 
 
 --
@@ -439,10 +596,10 @@ SELECT pg_catalog.setval('faculty_id_seq', 1, true);
 -- Data for Name: faculty_member; Type: TABLE DATA; Schema: dbga; Owner: postgres
 --
 
-COPY faculty_member (id, email, password, fname, lname, faculty_id, gender) FROM stdin;
-1	raibima.imam@ui.ac.id	password	Raibima	Putra	1	m
-2	nuryahya.prasetyo@ui.ac.id	password	Nuryahya	Prasetyo	1	m
-3	bondry@gmail.com	password	Handri	Santoso	1	m
+COPY faculty_member (id, email, password, fname, lname, faculty_id, gender, cv_id) FROM stdin;
+2	nuryahya.prasetyo@ui.ac.id	password	Nuryahya	Prasetyo	1	m	\N
+3	bondry@gmail.com	password	Handri	Santoso	1	m	\N
+1	raibima.imam@ui.ac.id	password	Raibima	Putra	1	m	1
 \.
 
 
@@ -458,7 +615,7 @@ SELECT pg_catalog.setval('faculty_member_id_seq', 1, false);
 --
 
 COPY full_time_job (job_id, working_hours) FROM stdin;
-1	\N
+1	8
 \.
 
 
@@ -467,7 +624,7 @@ COPY full_time_job (job_id, working_hours) FROM stdin;
 --
 
 COPY internship (job_id, duration) FROM stdin;
-2	\N
+2	10
 \.
 
 
@@ -486,7 +643,7 @@ COPY job (id, title, owner_id, faculty_id, requirement, description, industry, a
 -- Name: job_id_seq; Type: SEQUENCE SET; Schema: dbga; Owner: postgres
 --
 
-SELECT pg_catalog.setval('job_id_seq', 4, true);
+SELECT pg_catalog.setval('job_id_seq', 5, true);
 
 
 --
@@ -537,7 +694,7 @@ COPY research_project (job_id, leader, goals) FROM stdin;
 --
 
 COPY student (id, current_program, applicant_id, enroll_year) FROM stdin;
-1	u	\N	2012
+1	u	1	2012
 \.
 
 
@@ -563,6 +720,14 @@ ALTER TABLE ONLY company
 
 ALTER TABLE ONLY company
     ADD CONSTRAINT company_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cv_pkey; Type: CONSTRAINT; Schema: dbga; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cv
+    ADD CONSTRAINT cv_pkey PRIMARY KEY (id);
 
 
 --
@@ -614,6 +779,14 @@ ALTER TABLE ONLY job
 
 
 --
+-- Name: activity_cv_id_fkey; Type: FK CONSTRAINT; Schema: dbga; Owner: postgres
+--
+
+ALTER TABLE ONLY activity
+    ADD CONSTRAINT activity_cv_id_fkey FOREIGN KEY (cv_id) REFERENCES cv(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
 -- Name: alumnus_applicant_id_fkey; Type: FK CONSTRAINT; Schema: dbga; Owner: postgres
 --
 
@@ -630,6 +803,30 @@ ALTER TABLE ONLY alumnus
 
 
 --
+-- Name: applicant_cv_id_fkey; Type: FK CONSTRAINT; Schema: dbga; Owner: postgres
+--
+
+ALTER TABLE ONLY applicant
+    ADD CONSTRAINT applicant_cv_id_fkey FOREIGN KEY (cv_id) REFERENCES cv(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: applicant_job_id_fkey; Type: FK CONSTRAINT; Schema: dbga; Owner: postgres
+--
+
+ALTER TABLE ONLY applicant
+    ADD CONSTRAINT applicant_job_id_fkey FOREIGN KEY (job_id) REFERENCES job(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: award_cv_id_fkey; Type: FK CONSTRAINT; Schema: dbga; Owner: postgres
+--
+
+ALTER TABLE ONLY award
+    ADD CONSTRAINT award_cv_id_fkey FOREIGN KEY (cv_id) REFERENCES cv(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
 -- Name: company_faculty_id_fkey; Type: FK CONSTRAINT; Schema: dbga; Owner: postgres
 --
 
@@ -643,6 +840,30 @@ ALTER TABLE ONLY company
 
 ALTER TABLE ONLY company
     ADD CONSTRAINT company_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES job_owner(id);
+
+
+--
+-- Name: cv_activity_applicant_id_fkey; Type: FK CONSTRAINT; Schema: dbga; Owner: postgres
+--
+
+ALTER TABLE ONLY cv_activity
+    ADD CONSTRAINT cv_activity_applicant_id_fkey FOREIGN KEY (applicant_id) REFERENCES applicant(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: cv_award_applicant_id_fkey; Type: FK CONSTRAINT; Schema: dbga; Owner: postgres
+--
+
+ALTER TABLE ONLY cv_award
+    ADD CONSTRAINT cv_award_applicant_id_fkey FOREIGN KEY (applicant_id) REFERENCES applicant(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: faculty_member_cv_id_fkey; Type: FK CONSTRAINT; Schema: dbga; Owner: postgres
+--
+
+ALTER TABLE ONLY faculty_member
+    ADD CONSTRAINT faculty_member_cv_id_fkey FOREIGN KEY (cv_id) REFERENCES cv(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --

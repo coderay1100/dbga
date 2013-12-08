@@ -33,8 +33,12 @@ if (pg_num_rows($result) == 1) {
 }
 
 $value = "Apply <span class='glyphicon glyphicon-ok'></span>";
+$link = "apply.php?id=$jid";
+$listbtn = "";
 if (isset($_SESSION['oid'])) {
-	$value = "Edit <span class='glyphicon glyphicon-pencil'></span>";
+	$value = "<span class='glyphicon glyphicon-pencil'></span>";
+	$link = "addjob.php?edit=$jid";
+	$listbtn = '<a href="#" class="btn btn-success middle"><span class="glyphicon glyphicon-list"></span></a>';
 }
 
 echo <<<EOS
@@ -56,7 +60,8 @@ echo <<<EOS
 	<dt>Contact</dt>
 	<dd><a href='{$job['contact']}'>{$job['contact']}</a></dd>
 	<br>
-	<a href="apply.php?id=$jid" class="btn btn-primary middle">$value</a>
+	<a href="$link" class="btn btn-primary middle">$value</a>
+	$listbtn
 </dl>
 EOS;
 ?>

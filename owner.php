@@ -43,7 +43,7 @@ require_once "functions/authorization.php";
 									<?php include "includes/offers.php"; ?>
 								</tbody>
 							</table>
-						<a href="addjob.php" class="btn btn-link"><span class='glyphicon glyphicon-plus'></span> Add a job..</a>
+						<a href="addjob.php" class="btn btn-link"><span class='glyphicon glyphicon-plus'></span> Add a job</a>
 						</div> <!--/column1-->
 						
 						<!-- Details -->
