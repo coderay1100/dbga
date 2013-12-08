@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CV</title>
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+  
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/scripts.js"></script>
+</head>
+
+<body>
+			<nav class="navbar navbar-default" role="navigation">
+				<div class="navbar-header">
+					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">Database GA</a>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="active">
+							<a href="studentpage.html">Home</a>
+						</li>
+						
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">University of Indonesia<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="https://www.academic.ui.ac.id">SIAK-NG</a>
+								</li>
+								<li>
+									<a href="http://www.scele.cs.ui.ac.id">SCELE</a>
+								</li
+								<li class="divider">
+								<li>
+									<a href="https://print.mhs.cs.ui.ac.id/">Student Printing Facility</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<form class="navbar-form navbar-right" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control" />
+						</div> <button type="submit" class="btn btn-default">Search Job</button>
+					</form>
+					<ul class="nav navbar-nav navbar-right">
+						
+						<li class="dropdown">
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<strong class="caret"></strong></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="profilepage.html">Profile</a>
+								</li>
+								<li>
+									<a href="jobownerpage.html">Job List</a>
+								</li>
+								<li>
+									<a href="#">Settings</a>
+								</li>
+								<li>
+									<a href="#">Help</a>
+								</li>
+								<li class="divider">
+								</li>
+								<li>
+									<a href="#">Sign out</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				
+			</nav>
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="page-header">
+				<h1>
+					Curriculum Vitae
+				</h1>
+				<p> Please fill in all the information required in the spaces provided.</p>
+			</div>
+			<div class="page-header">
+				<h1>
+					<small>Job Experience</small>
+				</h1>
+			</div>
+			<div class="row clearfix">
+				<div class="col-md-9 column">						
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							 <label for="companyname" class="col-sm-2 control-label"> Company Name </label>
+							<div class="col-sm-3">
+								<input  class="form-control" id="inputcompanyname" />
+							</div>
+						</div>	
+						<div class="form-group">
+							 <label for="position" class="col-sm-2 control-label">Position</label>
+							<div class="col-sm-3">
+								<input  class="form-control" id="inputposition" />
+							</div>
+						</div>
+						<div class="form-group">
+							 <label for="location" class="col-sm-2 control-label">Location</label>
+							<div class="col-sm-3">
+								<input  class="form-control" id="inputlocation" />
+							</div>
+						</div>
+					</form>
+					<div class="row clearfix">
+						<div class="col-md-6 column">
+							<form role="form">
+								<div class="form-group">
+									 <label for="Startdate" type="date">Start Date (YYYY-MM-DD)</label><input class="form-control" id="inputstartdate" />
+								</div>
+							</form>
+						</div>
+						<div class="col-md-6 column">
+							<form role="form-horizontal">
+								<div class="form-group">
+									 <label for="enddate" type="date">End Date (YYYY-MM-DD)</label><input class="form-control" id="inputenddate" />
+								</div>
+							</form>
+						</div>
+						
+				<div class="page-header">
+				<h1>
+					<small>Honor</small>
+				</h1>
+			</div>
+			<div class="row clearfix">
+				<div class="col-md-9 column">						
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							 <label for="award" class="col-sm-2 control-label"> Honor </label>
+							<div class="col-sm-7">
+								<input  class="form-control" id="award" />
+							</div>
+						</div>	
+					</form>
+					
+				</div>
+				</div>
+				<div class="page-header">
+				<h1>
+					<small>Award(s)</small>
+				</h1>
+			</div>
+			
+			<div class="row clearfix">
+				<div class="col-md-9 column">						
+					<p>
+						List all your awards seperated by a comma (,) 
+					</p>
+					<div id="cid_4" class="form-input">
+						<textarea id="input_4" class="form-textarea col-sm-10"  cols="100" rows="5"></textarea>
+					</div>					
+				</div>
+				
+				</div>
+				<br>
+				<div class="page-header">
+				<h1>
+					<small>Education Background</small>
+				</h1>
+			</div>
+			
+			<div class="row clearfix">
+						<div class="col-md-6 column">
+							<form role="form">
+								<div class="form-group">
+									 <label>Field of Study</label><input class="form-control" id="fliedstudy" />
+								</div>
+								<div class="form-group">
+									 <label>GPA</label><input class="form-control" id="gpa" />
+								</div>
+							</form>
+						</div>
+						<div class="col-md-6 column">
+							<form role="form">
+								<div class="form-group">
+									 <label>Starting Year</label><input class="form-control" id="startyear" />
+								</div>
+								<div class="form-group">
+									 <label>Ending Year</label><input class="form-control" id="endyear" />
+								</div>
+							</form>
+						</div>
+						
+						<div class="col-md-9 column">
+							<br>						
+							<label>Activity</label>
+							<p>
+								List all your activities and organizational participation seperated by a comma (,) 
+							</p>
+							<div id="cid_4" class="form-input">
+								<textarea id="input_4" class="form-textarea col-sm-10"  cols="100" rows="5"></textarea>
+							</div>					
+						</div>
+					<div class="col-md-9 column">
+						<div class="row clearfix">					
+							<form class="form-horizontal" role="form">
+							<div class="form-group"><br>
+								 <label for="degree" class="col-sm-3 control-label"> Degree </label>
+								<div class="col-sm-7">
+									<input  class="form-control" id="inputdegree" />
+								</div>
+							</div>
+							
+							<form class="form-horizontal" role="form">
+							<div class="form-group">
+								 <label for="school" class="col-sm-3 control-label"> School </label>
+								<div class="col-sm-7">
+									<input  class="form-control" id="inputschool" />
+								</div>
+							</div>	
+						</div>
+					
+					<br>
+				<button type="button" class="btn btn-default">Save</button>
+				<button type="button" class="btn btn-default">Reset</button>
+				</div>
+				<div class="col-md-3 column">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<br>
+	<br>
+	
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<blockquote>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
+				</p> <small>Someone famous <cite>Source Title</cite></small>
+			</blockquote>
+		</div>
+	</div>
+</div>
+</body>
+</html>
