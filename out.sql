@@ -25,20 +25,6 @@ ALTER SCHEMA dbga OWNER TO postgres;
 COMMENT ON SCHEMA dbga IS 'Database Group Assignment';
 
 
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
 SET search_path = dbga, pg_catalog;
 
 SET default_tablespace = '';
@@ -504,6 +490,7 @@ ALTER TABLE ONLY job_owner ALTER COLUMN id SET DEFAULT nextval('job_owner_id_seq
 COPY activity (cv_id, activity) FROM stdin;
 1	Student Org
 1	Student
+2	-
 \.
 
 
@@ -512,12 +499,12 @@ COPY activity (cv_id, activity) FROM stdin;
 --
 
 COPY alumnus (id, applicant_id, enroll_year, grad_year) FROM stdin;
-2	\N	2006	2012
 6	\N	2008	2012
 7	\N	2007	2012
 8	\N	2006	2010
 9	\N	2000	2002
 10	\N	2003	2008
+2	3	2006	2012
 \.
 
 
@@ -527,6 +514,7 @@ COPY alumnus (id, applicant_id, enroll_year, grad_year) FROM stdin;
 
 COPY applicant (id, cv_id, date_time, status, job_id) FROM stdin;
 1	1	2013-12-08 14:25:55.747	f	3
+3	2	2013-12-09 11:03:08.175	f	2
 \.
 
 
@@ -534,7 +522,7 @@ COPY applicant (id, cv_id, date_time, status, job_id) FROM stdin;
 -- Name: applicant_id_seq; Type: SEQUENCE SET; Schema: dbga; Owner: postgres
 --
 
-SELECT pg_catalog.setval('applicant_id_seq', 2, true);
+SELECT pg_catalog.setval('applicant_id_seq', 3, true);
 
 
 --
@@ -544,6 +532,8 @@ SELECT pg_catalog.setval('applicant_id_seq', 2, true);
 COPY award (cv_id, award) FROM stdin;
 1	Best Luck
 1	Best Brain
+2	adf
+2	adfa
 \.
 
 
@@ -578,6 +568,7 @@ SELECT pg_catalog.setval('company_id_seq', 10, true);
 
 COPY cv (company, "position", location, start_date, end_date, honor, study_field, gpa, start_year, end_year, degree, school, id) FROM stdin;
 Google	CEO		2000-10-10	2001-10-10	-	Computer Science	3.7000000000000002	2012	2015	Bachelor	University of Indonesia	1
+aldlfadlfa	adflasdfas		2000-10-10	2000-11-11	alfadf	aldjflasdf	3.2999999999999998	2000	2001	-	-	2
 \.
 
 
@@ -601,7 +592,7 @@ COPY cv_award (applicant_id, award) FROM stdin;
 -- Name: cv_id_seq; Type: SEQUENCE SET; Schema: dbga; Owner: postgres
 --
 
-SELECT pg_catalog.setval('cv_id_seq', 1, true);
+SELECT pg_catalog.setval('cv_id_seq', 2, true);
 
 
 --
@@ -629,7 +620,6 @@ SELECT pg_catalog.setval('faculty_id_seq', 5, true);
 --
 
 COPY faculty_member (id, email, password, fname, lname, faculty_id, gender, cv_id) FROM stdin;
-2	nuryahya.prasetyo@ui.ac.id	password	Nuryahya	Prasetyo	1	m	\N
 3	bondry@gmail.com	password	Handri	Santoso	1	m	\N
 1	raibima.imam@ui.ac.id	password	Raibima	Putra	1	m	1
 4	gavin@norman.com	1234	gavin	norman	2	M	\N
@@ -644,6 +634,7 @@ COPY faculty_member (id, email, password, fname, lname, faculty_id, gender, cv_i
 13	Lea@jessy.com	1234	lea	jessy	2	F	\N
 14	Fay@bee.com	1234	fay	bee	5	F	\N
 15	Taiocruz@cruz.com	1234	taio	cruz	4	F	\N
+2	nuryahya.prasetyo@ui.ac.id	password	Nuryahya	Prasetyo	1	m	2
 \.
 
 
@@ -669,6 +660,7 @@ COPY full_time_job (job_id, working_hours) FROM stdin;
 
 COPY internship (job_id, duration) FROM stdin;
 2	10
+6	10
 \.
 
 
@@ -680,6 +672,7 @@ COPY job (id, title, owner_id, faculty_id, requirement, description, industry, a
 2	Database Administrator	1	1	3	Cupcake ipsum dolor sit amet danish I love powder. Candy canes macaroon ice cream cupcake danish tart bear claw. I love jelly beans cake apple pie donut chocolate cake muffin jelly-o pudding.	Information Technology	Mountain View	Silicon Valley	California	USA
 1	Software Engineer	1	1	3.2999999999999998	Cupcake ipsum dolor sit amet apple pie brownie bear claw. I love jujubes I love chupa chups pie. Icing I love jujubes. Candy canes candy canes gingerbread chupa chups bonbon I love candy canes pie chocolate bar.	Information Technology	Mountain View	Silicon Valley	California	USA
 3	TA: Calculus 2012	2	1	3.5	Teaching assistant for 2012 Calculus class	Educational	Universitas Indonesia	Depok	West Java	Indonesia
+6	Noogle	1	1	3.2999999999999998	 Join the excitement of being a Googler!	IT	Mountain View	Silicon Valley	California	USA
 \.
 
 
@@ -687,7 +680,7 @@ COPY job (id, title, owner_id, faculty_id, requirement, description, industry, a
 -- Name: job_id_seq; Type: SEQUENCE SET; Schema: dbga; Owner: postgres
 --
 
-SELECT pg_catalog.setval('job_id_seq', 5, true);
+SELECT pg_catalog.setval('job_id_seq', 7, true);
 
 
 --
@@ -1013,16 +1006,6 @@ ALTER TABLE ONLY student
 
 ALTER TABLE ONLY student
     ADD CONSTRAINT student_id_fkey FOREIGN KEY (id) REFERENCES faculty_member(id);
-
-
---
--- Name: public; Type: ACL; Schema: -; Owner: postgres
---
-
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
