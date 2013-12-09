@@ -9,7 +9,7 @@ Database Group Assignment
   </ul>
 </p>
 
-<p><h3>Git user</h3><code>$ git clone https://github.com/coderay1100/dbga</code></p>
+<p><h3>Git user</h3><code>$ git clone https://github.com/coderay1100/dbga.git</code></p>
 
 <p>
   <h3>How to configure:</h3>
