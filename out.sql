@@ -166,30 +166,6 @@ CREATE TABLE cv (
 ALTER TABLE dbga.cv OWNER TO postgres;
 
 --
--- Name: cv_activity; Type: TABLE; Schema: dbga; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cv_activity (
-    applicant_id integer NOT NULL,
-    activity character varying(50)
-);
-
-
-ALTER TABLE dbga.cv_activity OWNER TO postgres;
-
---
--- Name: cv_award; Type: TABLE; Schema: dbga; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE cv_award (
-    applicant_id integer NOT NULL,
-    award character varying(50)
-);
-
-
-ALTER TABLE dbga.cv_award OWNER TO postgres;
-
---
 -- Name: cv_id_seq; Type: SEQUENCE; Schema: dbga; Owner: postgres
 --
 
@@ -490,7 +466,8 @@ ALTER TABLE ONLY job_owner ALTER COLUMN id SET DEFAULT nextval('job_owner_id_seq
 COPY activity (cv_id, activity) FROM stdin;
 1	Student Org
 1	Student
-2	-
+2	Array
+3	-
 \.
 
 
@@ -504,7 +481,6 @@ COPY alumnus (id, applicant_id, enroll_year, grad_year) FROM stdin;
 8	\N	2006	2010
 9	\N	2000	2002
 10	\N	2003	2008
-2	3	2006	2012
 \.
 
 
@@ -514,7 +490,7 @@ COPY alumnus (id, applicant_id, enroll_year, grad_year) FROM stdin;
 
 COPY applicant (id, cv_id, date_time, status, job_id) FROM stdin;
 1	1	2013-12-08 14:25:55.747	f	3
-3	2	2013-12-09 11:03:08.175	f	2
+4	3	2013-12-09 13:05:31.074	t	24
 \.
 
 
@@ -522,7 +498,7 @@ COPY applicant (id, cv_id, date_time, status, job_id) FROM stdin;
 -- Name: applicant_id_seq; Type: SEQUENCE SET; Schema: dbga; Owner: postgres
 --
 
-SELECT pg_catalog.setval('applicant_id_seq', 3, true);
+SELECT pg_catalog.setval('applicant_id_seq', 4, true);
 
 
 --
@@ -532,8 +508,9 @@ SELECT pg_catalog.setval('applicant_id_seq', 3, true);
 COPY award (cv_id, award) FROM stdin;
 1	Best Luck
 1	Best Brain
-2	adf
-2	adfa
+2	Array
+2	Array
+3	-
 \.
 
 
@@ -568,23 +545,8 @@ SELECT pg_catalog.setval('company_id_seq', 10, true);
 
 COPY cv (company, "position", location, start_date, end_date, honor, study_field, gpa, start_year, end_year, degree, school, id) FROM stdin;
 Google	CEO		2000-10-10	2001-10-10	-	Computer Science	3.7000000000000002	2012	2015	Bachelor	University of Indonesia	1
-aldlfadlfa	adflasdfas		2000-10-10	2000-11-11	alfadf	aldjflasdf	3.2999999999999998	2000	2001	-	-	2
-\.
-
-
---
--- Data for Name: cv_activity; Type: TABLE DATA; Schema: dbga; Owner: postgres
---
-
-COPY cv_activity (applicant_id, activity) FROM stdin;
-\.
-
-
---
--- Data for Name: cv_award; Type: TABLE DATA; Schema: dbga; Owner: postgres
---
-
-COPY cv_award (applicant_id, award) FROM stdin;
+aldlfadlfa	adflasdfas		2000-10-10	2000-11-11	alfadfadfadffd	aldjflasdf	3.2999999999999998	2000	2001	Bachelor	-	2
+fdsafs	sdfsf		2000-10-10	2000-11-11	-	-	3.2999999999999998	2000	2004	-	-	3
 \.
 
 
@@ -592,7 +554,7 @@ COPY cv_award (applicant_id, award) FROM stdin;
 -- Name: cv_id_seq; Type: SEQUENCE SET; Schema: dbga; Owner: postgres
 --
 
-SELECT pg_catalog.setval('cv_id_seq', 2, true);
+SELECT pg_catalog.setval('cv_id_seq', 3, true);
 
 
 --
@@ -623,7 +585,6 @@ COPY faculty_member (id, email, password, fname, lname, faculty_id, gender, cv_i
 3	bondry@gmail.com	password	Handri	Santoso	1	m	\N
 1	raibima.imam@ui.ac.id	password	Raibima	Putra	1	m	1
 4	gavin@norman.com	1234	gavin	norman	2	M	\N
-5	rendy@yonas.com	1234	rendy	yonas	3	M	\N
 6	Maha@mubarak.com	1234	maha	mubarak	4	F	\N
 7	Rifky@ryan.com	1234	rifky	ryan	5	M	\N
 8	Mar@shila.com	1234	marshila	\N	1	F	\N
@@ -635,6 +596,7 @@ COPY faculty_member (id, email, password, fname, lname, faculty_id, gender, cv_i
 14	Fay@bee.com	1234	fay	bee	5	F	\N
 15	Taiocruz@cruz.com	1234	taio	cruz	4	F	\N
 2	nuryahya.prasetyo@ui.ac.id	password	Nuryahya	Prasetyo	1	m	2
+5	rendy@yonas.com	1234	rendy	yonas	3	M	3
 \.
 
 
@@ -651,6 +613,16 @@ SELECT pg_catalog.setval('faculty_member_id_seq', 15, true);
 
 COPY full_time_job (job_id, working_hours) FROM stdin;
 1	8
+9	9
+12	10
+13	10
+14	10
+16	8
+18	8
+19	8
+22	8
+23	8
+25	8
 \.
 
 
@@ -659,8 +631,7 @@ COPY full_time_job (job_id, working_hours) FROM stdin;
 --
 
 COPY internship (job_id, duration) FROM stdin;
-2	10
-6	10
+10	40
 \.
 
 
@@ -669,10 +640,25 @@ COPY internship (job_id, duration) FROM stdin;
 --
 
 COPY job (id, title, owner_id, faculty_id, requirement, description, industry, address, city, province, country) FROM stdin;
-2	Database Administrator	1	1	3	Cupcake ipsum dolor sit amet danish I love powder. Candy canes macaroon ice cream cupcake danish tart bear claw. I love jelly beans cake apple pie donut chocolate cake muffin jelly-o pudding.	Information Technology	Mountain View	Silicon Valley	California	USA
 1	Software Engineer	1	1	3.2999999999999998	Cupcake ipsum dolor sit amet apple pie brownie bear claw. I love jujubes I love chupa chups pie. Icing I love jujubes. Candy canes candy canes gingerbread chupa chups bonbon I love candy canes pie chocolate bar.	Information Technology	Mountain View	Silicon Valley	California	USA
 3	TA: Calculus 2012	2	1	3.5	Teaching assistant for 2012 Calculus class	Educational	Universitas Indonesia	Depok	West Java	Indonesia
-6	Noogle	1	1	3.2999999999999998	 Join the excitement of being a Googler!	IT	Mountain View	Silicon Valley	California	USA
+20	Car Technician	8	3	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé cheesecake. Sweet cookie biscuit dragée ice cream lollipop pudding cookie topping. Unerdwear.com jelly beans bonbon.	Engineering	Mt haryono	Jakarta	Jakarta	Indonesia
+21	Car Washer	8	3	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé cheesecake. Sweet cookie biscuit dragée ice cream lollipop pudding cookie topping. Unerdwear.com jelly beans bonbon.	Engineering	mt haryono	jakarta	jakarta	Indonesia
+9	CEO	1	1	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé cheesecake. Sweet cookie biscuit dragée ice cream lollipop pudding cookie topping. Unerdwear.com jelly beans bonbon.	Technology	Mountain View	Silicon Valley	CA	USA
+10	Pharmacist	3	2	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé cheesecake. Sweet cookie biscuit dragée ice cream lollipop pudding cookie topping. Unerdwear.com jelly beans bonbon.	Medicine	Evergreen Blvd	Saint Louis	MO	USA
+11	Nurse	3	2	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé cheesecake. Sweet cookie biscuit dragée ice cream lollipop pudding cookie topping. Unerdwear.com jelly beans bonbon.	Medicine	Ave NE	Hickory	NC	USA
+12	Assistant	4	4	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé cheesecake. Sweet cookie biscuit dragée ice cream lollipop pudding cookie topping. Unerdwear.com jelly beans bonbon.	Law	Maple St.	New Milford	PA	USA
+13	Head of Bla	4	4	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé cheesecake. Sweet cookie biscuit dragée ice cream lollipop pudding cookie topping. Unerdwear.com jelly beans bonbon.	Bla	Alberta Ave	SIcklerville	NJ	USA
+14	Head of Production	5	3	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé cheesecake. Sweet cookie biscuit dragée ice cream lollipop pudding cookie topping. Unerdwear.com jelly beans bonbon.	Auto Manufacture	Strawberry Rd	Union Springs	AL	USA
+15	Nano Technology Reseach	5	3	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé cheesecake. Sweet cookie biscuit dragée ice cream lollipop pudding cookie topping. Unerdwear.com jelly beans bonbon.	Technology	Discovery Way	Concord	CA	USA
+16	Production Manager	6	5	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé	cupcake	Kemang pratama	Depok	Depok	Indonesia
+17	Buyer Leader	6	5	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé cheesecake. Sweet cookie biscuit dragée ice cream lollipop pudding cookie topping. Unerdwear.com jelly beans bonbon.	cupcake	Matraman	Jakarta	Jakarta	Indonesia
+18	Head of Industry	7	1	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé cheesecake. Sweet cookie biscuit dragée ice cream lollipop pudding cookie topping. Unerdwear.com jelly beans bonbon.	Tecnology	Discovery Way	Silicon Valley	CA	USA
+19	Head of Creative Team	7	1	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé cheesecake. Sweet cookie biscuit dragée ice cream lollipop pudding cookie topping. Unerdwear.com jelly beans bonbon.	Technology	Discovery Way	Silicon Valley	CA	USA
+22	Drug Tester	9	2	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé cheesecake. Sweet cookie biscuit dragée ice cream lollipop pudding cookie topping. Unerdwear.com jelly beans bonbon.	Medicine	Riverview	Hickory	AL	USA
+23	Lab Scientist	9	2	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé cheesecake. Sweet cookie biscuit dragée ice cream lollipop pudding cookie topping. Unerdwear.com jelly beans bonbon.	Medicine	Evergreen Blvd	Concord	AL	USA
+24	Car Mechanics	10	3	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé cheesecake. Sweet cookie biscuit dragée ice cream lollipop pudding cookie topping. Unerdwear.com jelly beans bonbon.	Engineering	Cibubur	Jakarta	---	Indonesia
+25	Head of Production	10	3	3.2999999999999998	 Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake. Toffee macaroon danish chupa chups danish icing. Chocolate jelly beans cupcake lollipop wafer applicake wafer pastry marshmallow. Sesame snaps topping cookie donut liquorice toffee pudding gummies. Chocolate cake cheesecake brownie muffin candy soufflé cheesecake. Sweet cookie biscuit dragée ice cream lollipop pudding cookie topping. Unerdwear.com jelly beans bonbon.	Engineering	Cibubur	Jakarta	---	Indonesia
 \.
 
 
@@ -680,7 +666,7 @@ COPY job (id, title, owner_id, faculty_id, requirement, description, industry, a
 -- Name: job_id_seq; Type: SEQUENCE SET; Schema: dbga; Owner: postgres
 --
 
-SELECT pg_catalog.setval('job_id_seq', 7, true);
+SELECT pg_catalog.setval('job_id_seq', 25, true);
 
 
 --
@@ -728,6 +714,11 @@ COPY lecturer (id, owner_id, salary, bank_account) FROM stdin;
 
 COPY part_time_job (job_id, salary_per_hour, hours_per_week) FROM stdin;
 3	\N	\N
+11	15	20
+17	10	30
+20	10	30
+21	10	30
+24	10	30
 \.
 
 
@@ -736,6 +727,7 @@ COPY part_time_job (job_id, salary_per_hour, hours_per_week) FROM stdin;
 --
 
 COPY research_project (job_id, leader, goals) FROM stdin;
+15	Rendy	Cupcake ipsum dolor sit amet jelly cheesecake cheesecake oat cake.
 \.
 
 
@@ -748,7 +740,7 @@ COPY student (id, current_program, applicant_id, enroll_year) FROM stdin;
 2	u	\N	2006
 3	u	\N	2011
 4	M	\N	2006
-5	u	\N	2012
+5	u	4	2012
 \.
 
 
@@ -845,7 +837,7 @@ ALTER TABLE ONLY activity
 --
 
 ALTER TABLE ONLY alumnus
-    ADD CONSTRAINT alumnus_applicant_id_fkey FOREIGN KEY (applicant_id) REFERENCES applicant(id);
+    ADD CONSTRAINT alumnus_applicant_id_fkey FOREIGN KEY (applicant_id) REFERENCES applicant(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -894,22 +886,6 @@ ALTER TABLE ONLY company
 
 ALTER TABLE ONLY company
     ADD CONSTRAINT company_owner_id_fkey FOREIGN KEY (owner_id) REFERENCES job_owner(id);
-
-
---
--- Name: cv_activity_applicant_id_fkey; Type: FK CONSTRAINT; Schema: dbga; Owner: postgres
---
-
-ALTER TABLE ONLY cv_activity
-    ADD CONSTRAINT cv_activity_applicant_id_fkey FOREIGN KEY (applicant_id) REFERENCES applicant(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: cv_award_applicant_id_fkey; Type: FK CONSTRAINT; Schema: dbga; Owner: postgres
---
-
-ALTER TABLE ONLY cv_award
-    ADD CONSTRAINT cv_award_applicant_id_fkey FOREIGN KEY (applicant_id) REFERENCES applicant(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -997,7 +973,7 @@ ALTER TABLE ONLY research_project
 --
 
 ALTER TABLE ONLY student
-    ADD CONSTRAINT student_applicant_id_fkey FOREIGN KEY (applicant_id) REFERENCES applicant(id);
+    ADD CONSTRAINT student_applicant_id_fkey FOREIGN KEY (applicant_id) REFERENCES applicant(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --

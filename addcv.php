@@ -10,9 +10,10 @@ $con = connectDB();
 
 $result = queryDB("SELECT cv_id FROM dbga.faculty_member WHERE id={$_SESSION['id']}");
 $cvid = fetchResult($result)['cv_id'];
-
+$link = "submitcv.php";
 $data = array();
 if ($cvid > 0) {
+	$link = "editcv.php?id=$cvid";
 	$result = queryDB("SELECT * FROM dbga.cv WHERE id=$cvid");
 	$data = fetchResult($result);
 	$result = queryDB("SELECT * FROM dbga.award WHERE cv_id=$cvid");
@@ -50,7 +51,7 @@ if ($cvid > 0) {
 					</div>
 					
 					
-					<form role="form" action="submitcv.php" method="post">
+					<form role="form" action="<?php echo $link; ?>" method="post">
 					
 					<div class="page-header">
 						<h1><small>Job Experience</small></h1>

@@ -7,6 +7,7 @@ require_once "functions/authorization.php";
 require_once "functions/dbconnect.php";
 $con = connectDB();
 require_once "functions/jobcat.php";
+$link = "submitjob.php";
 
 if (isset($_GET['edit'])) {
 	$jid = $_GET['edit'];
@@ -15,6 +16,7 @@ if (isset($_GET['edit'])) {
 	$cat = jobcat($jid);
 	$table = "";
 	$val = "";
+	$link = "editjob.php?id=$jid";
 	switch ($cat) {
 		case 'Internship':
 			$table = "dbga.internship";
@@ -56,7 +58,7 @@ if (isset($_GET['edit'])) {
 				</div>
 			</div>
 			
-			<form role="form" action="submitjob.php" method="post">
+			<form role="form" action="<?php echo $link; ?>" method="post">
 			
 				<div class="row">
 					<div class="col-md-3 col-md-offset-3">
